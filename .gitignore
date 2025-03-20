@@ -137,3 +137,6 @@ dist
 
 # dev logs
 user_stories.md
+
+# Build Directory
+build/
