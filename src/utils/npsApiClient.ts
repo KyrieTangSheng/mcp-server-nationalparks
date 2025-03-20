@@ -102,6 +102,206 @@ export interface AlertQueryParams {
   q?: string;
 }
 
+export interface VisitorCenterData {
+  id: string;
+  url: string;
+  name: string;
+  parkCode: string;
+  description: string;
+  latitude: string;
+  longitude: string;
+  latLong: string;
+  directionsInfo: string;
+  directionsUrl: string;
+  addresses: Array<{
+    postalCode: string;
+    city: string;
+    stateCode: string;
+    line1: string;
+    line2: string;
+    line3: string;
+    type: string;
+  }>;
+  operatingHours: Array<{
+    exceptions: any[];
+    description: string;
+    standardHours: {
+      sunday: string;
+      monday: string;
+      tuesday: string;
+      wednesday: string;
+      thursday: string;
+      friday: string;
+      saturday: string;
+    };
+    name: string;
+  }>;
+  contacts: {
+    phoneNumbers: Array<{ phoneNumber: string; description: string; extension: string; type: string }>;
+    emailAddresses: Array<{ description: string; emailAddress: string }>;
+  };
+}
+
+export interface CampgroundData {
+  id: string;
+  url: string;
+  name: string;
+  parkCode: string;
+  description: string;
+  latitude: string;
+  longitude: string;
+  latLong: string;
+  audioDescription: string;
+  isPassportStampLocation: boolean;
+  passportStampLocationDescription: string;
+  passportStampImages: any[];
+  geometryPoiId: string;
+  reservationInfo: string;
+  reservationUrl: string;
+  regulationsurl: string;
+  regulationsOverview: string;
+  amenities: {
+    trashRecyclingCollection: boolean;
+    toilets: string[];
+    internetConnectivity: boolean;
+    showers: string[];
+    cellPhoneReception: boolean;
+    laundry: boolean;
+    amphitheater: boolean;
+    dumpStation: boolean;
+    campStore: boolean;
+    staffOrVolunteerHostOnsite: boolean;
+    potableWater: string[];
+    iceAvailableForSale: boolean;
+    firewoodForSale: boolean;
+    foodStorageLockers: boolean;
+  };
+  contacts: {
+    phoneNumbers: Array<{ phoneNumber: string; description: string; extension: string; type: string }>;
+    emailAddresses: Array<{ description: string; emailAddress: string }>;
+  };
+  fees: Array<{
+    cost: string;
+    description: string;
+    title: string;
+  }>;
+  directionsOverview: string;
+  directionsUrl: string;
+  operatingHours: Array<{
+    exceptions: any[];
+    description: string;
+    standardHours: {
+      sunday: string;
+      monday: string;
+      tuesday: string;
+      wednesday: string;
+      thursday: string;
+      friday: string;
+      saturday: string;
+    };
+    name: string;
+  }>;
+  addresses: Array<{
+    postalCode: string;
+    city: string;
+    stateCode: string;
+    line1: string;
+    line2: string;
+    line3: string;
+    type: string;
+  }>;
+  weatherOverview: string;
+  numberOfSitesReservable: string;
+  numberOfSitesFirstComeFirstServe: string;
+  campsites: {
+    totalSites: string;
+    group: string;
+    horse: string;
+    tentOnly: string;
+    electricalHookups: string;
+    rvOnly: string;
+    walkBoatTo: string;
+    other: string;
+  };
+  accessibility: {
+    wheelchairAccess: string;
+    internetInfo: string;
+    cellPhoneInfo: string;
+    fireStovePolicy: string;
+    rvAllowed: boolean;
+    rvInfo: string;
+    rvMaxLength: string;
+    additionalInfo: string;
+    trailerMaxLength: string;
+    adaInfo: string;
+    trailerAllowed: boolean;
+    accessRoads: string[];
+    classifications: string[];
+  };
+}
+
+export interface EventData {
+  id: string;
+  url: string;
+  title: string;
+  parkFullName: string;
+  description: string;
+  latitude: string;
+  longitude: string;
+  category: string;
+  subcategory: string;
+  location: string;
+  tags: string[];
+  recurrenceDateStart: string;
+  recurrenceDateEnd: string;
+  times: Array<{
+    timeStart: string;
+    timeEnd: string;
+    sunriseTimeStart: boolean;
+    sunsetTimeEnd: boolean;
+  }>;
+  dates: string[];
+  dateStart: string;
+  dateEnd: string;
+  regresurl: string;
+  contactEmailAddress: string;
+  contactTelephoneNumber: string;
+  feeInfo: string;
+  isRecurring: boolean;
+  isAllDay: boolean;
+  siteCode: string;
+  parkCode: string;
+  organizationName: string;
+  types: string[];
+  createDate: string;
+  lastUpdated: string;
+  infoURL: string;
+  portalName: string;
+}
+
+export interface VisitorCenterQueryParams {
+  parkCode?: string;
+  limit?: number;
+  start?: number;
+  q?: string;
+}
+
+export interface CampgroundQueryParams {
+  parkCode?: string;
+  limit?: number;
+  start?: number;
+  q?: string;
+}
+
+export interface EventQueryParams {
+  parkCode?: string;
+  limit?: number;
+  start?: number;
+  q?: string;
+  dateStart?: string;
+  dateEnd?: string;
+}
+
 /**
  * NPS API Client class
  */
@@ -218,6 +418,51 @@ class NPSApiClient {
       return response.data;
     } catch (error) {
       console.error(`Error fetching alerts for park ${parkCode}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Fetch visitor centers from the NPS API
+   * @param params Query parameters
+   * @returns Promise with visitor centers data
+   */
+  async getVisitorCenters(params: VisitorCenterQueryParams = {}): Promise<NPSResponse<VisitorCenterData>> {
+    try {
+      const response = await this.api.get('/visitorcenters', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching visitor centers data:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Fetch campgrounds from the NPS API
+   * @param params Query parameters
+   * @returns Promise with campgrounds data
+   */
+  async getCampgrounds(params: CampgroundQueryParams = {}): Promise<NPSResponse<CampgroundData>> {
+    try {
+      const response = await this.api.get('/campgrounds', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching campgrounds data:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Fetch events from the NPS API
+   * @param params Query parameters
+   * @returns Promise with events data
+   */
+  async getEvents(params: EventQueryParams = {}): Promise<NPSResponse<EventData>> {
+    try {
+      const response = await this.api.get('/events', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching events data:', error);
       throw error;
     }
   }

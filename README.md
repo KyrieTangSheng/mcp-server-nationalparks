@@ -2,13 +2,6 @@
 
 MCP Server for the National Park Service (NPS) API, providing real-time information about U.S. National Parks, including park details, alerts, and activities.
 
-## Features
-
-- **Comprehensive Park Information**: Search and retrieve detailed information about all U.S. National Parks
-- **Current Alerts and Closures**: Get real-time alerts, closures, and hazardous conditions for parks
-- **Search Capabilities**: Find parks by state, activities, or keywords
-- **Structured Data**: Well-formatted data optimized for AI consumption
-
 ## Tools
 
 1. `findParks`
@@ -36,22 +29,34 @@ MCP Server for the National Park Service (NPS) API, providing real-time informat
      - `q` (optional string): Search term to filter alerts by title or description
    - Returns: Current alerts organized by park
 
-## Common Park Codes
+4. `getVisitorCenters`
+   - Get information about visitor centers and their operating hours
+   - Inputs:
+     - `parkCode` (optional string): Filter visitor centers by park code (e.g., "yose" for Yosemite). Multiple parks can be comma-separated (e.g., "yose,grca")
+     - `limit` (optional number): Maximum number of visitor centers to return (default: 10, max: 50)
+     - `start` (optional number): Start position for results (useful for pagination)
+     - `q` (optional string): Search term to filter visitor centers by name or description
+   - Returns: Visitor center information including location, hours, and contact details
 
-| Park Name | Park Code |
-|-----------|-----------|
-| Yosemite | yose |
-| Grand Canyon | grca |
-| Yellowstone | yell |
-| Zion | zion |
-| Great Smoky Mountains | grsm |
-| Acadia | acad |
-| Olympic | olym |
-| Rocky Mountain | romo |
-| Joshua Tree | jotr |
-| Sequoia & Kings Canyon | seki |
+5. `getCampgrounds`
+   - Get information about available campgrounds and their amenities
+   - Inputs:
+     - `parkCode` (optional string): Filter campgrounds by park code (e.g., "yose" for Yosemite). Multiple parks can be comma-separated (e.g., "yose,grca")
+     - `limit` (optional number): Maximum number of campgrounds to return (default: 10, max: 50)
+     - `start` (optional number): Start position for results (useful for pagination)
+     - `q` (optional string): Search term to filter campgrounds by name or description
+   - Returns: Campground information including amenities, fees, and reservation details
 
-For a complete list, visit the [NPS website](https://www.nps.gov/findapark/index.htm).
+6. `getEvents`
+   - Find upcoming events at parks
+   - Inputs:
+     - `parkCode` (optional string): Filter events by park code (e.g., "yose" for Yosemite). Multiple parks can be comma-separated (e.g., "yose,grca")
+     - `limit` (optional number): Maximum number of events to return (default: 10, max: 50)
+     - `start` (optional number): Start position for results (useful for pagination)
+     - `dateStart` (optional string): Start date for filtering events (format: YYYY-MM-DD)
+     - `dateEnd` (optional string): End date for filtering events (format: YYYY-MM-DD)
+     - `q` (optional string): Search term to filter events by title or description
+   - Returns: Event information including dates, times, and descriptions
 
 ## Setup
 
@@ -76,29 +81,6 @@ To use this server with Claude Desktop, add the following to your `claude_deskto
   }
 }
 ```
-
-### Local Development
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file in the project root with your API key:
-   ```
-   NPS_API_KEY=your_api_key_here
-   ```
-4. Build and run the server:
-   ```bash
-   npm run build
-   npm start
-   ```
-
-For development with hot reloading:
-```bash
-npm run dev
-```
-
 ## Example Usage
 
 ### Finding Parks in a State
@@ -116,26 +98,44 @@ What's the entrance fee for Yellowstone National Park?
 Are there any closures or alerts at Yosemite right now?
 ```
 
+### Finding Visitor Centers
+```
+What visitor centers are available at Grand Canyon National Park?
+```
+
+### Looking for Campgrounds
+```
+Are there any campgrounds with electrical hookups in Zion National Park?
+```
+
+### Finding Upcoming Events
+```
+What events are happening at Acadia National Park next weekend?
+```
+
 ### Planning a Trip Based on Activities
 ```
 Which national parks in Utah have good hiking trails?
 ```
 
-## Project Structure
-
-- `src/index.ts` - Main entry point for the server
-- `src/utils/npsApiClient.ts` - Client for the NPS API
-- `tsconfig.json` - TypeScript configuration
-- `package.json` - Project dependencies and scripts
-
-## Implementation Notes
-
-This server uses the following libraries:
-- `@modelcontextprotocol/sdk` - MCP SDK for server implementation
-- `axios` - For HTTP requests to the NPS API
-- `zod` - For schema validation
-- `dotenv` - For environment variable management
-
 ## License
 
 This MCP server is licensed under the MIT License. See the LICENSE file for details.
+
+
+## Appendix: Popular National Parks and their codes
+
+| Park Name | Park Code |
+|-----------|-----------|
+| Yosemite | yose |
+| Grand Canyon | grca |
+| Yellowstone | yell |
+| Zion | zion |
+| Great Smoky Mountains | grsm |
+| Acadia | acad |
+| Olympic | olym |
+| Rocky Mountain | romo |
+| Joshua Tree | jotr |
+| Sequoia & Kings Canyon | seki |
+
+For a complete list, visit the [NPS website](https://www.nps.gov/findapark/index.htm).
