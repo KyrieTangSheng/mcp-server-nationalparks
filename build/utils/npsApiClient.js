@@ -120,6 +120,51 @@ class NPSApiClient {
             throw error;
         }
     }
+    /**
+     * Fetch visitor centers from the NPS API
+     * @param params Query parameters
+     * @returns Promise with visitor centers data
+     */
+    async getVisitorCenters(params = {}) {
+        try {
+            const response = await this.api.get('/visitorcenters', { params });
+            return response.data;
+        }
+        catch (error) {
+            console.error('Error fetching visitor centers data:', error);
+            throw error;
+        }
+    }
+    /**
+     * Fetch campgrounds from the NPS API
+     * @param params Query parameters
+     * @returns Promise with campgrounds data
+     */
+    async getCampgrounds(params = {}) {
+        try {
+            const response = await this.api.get('/campgrounds', { params });
+            return response.data;
+        }
+        catch (error) {
+            console.error('Error fetching campgrounds data:', error);
+            throw error;
+        }
+    }
+    /**
+     * Fetch events from the NPS API
+     * @param params Query parameters
+     * @returns Promise with events data
+     */
+    async getEvents(params = {}) {
+        try {
+            const response = await this.api.get('/events', { params });
+            return response.data;
+        }
+        catch (error) {
+            console.error('Error fetching events data:', error);
+            throw error;
+        }
+    }
 }
 // Export a singleton instance
 export const npsApiClient = new NPSApiClient();
