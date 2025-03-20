@@ -18,9 +18,9 @@
     "type": "git",
     "url": "git+https://github.com/KyrieTangSheng/mcp-server-nationalparks.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["mcp", "claude", "national-parks", "api", "anthropic"],
+  "author": "Tang Sheng",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/KyrieTangSheng/mcp-server-nationalparks/issues"
   },
