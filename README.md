@@ -1,4 +1,5 @@
 # National Parks MCP Server
+[![smithery badge](https://smithery.ai/badge/@KyrieTangSheng/mcp-server-nationalparks)](https://smithery.ai/server/@KyrieTangSheng/mcp-server-nationalparks)
 
 MCP Server for the National Park Service (NPS) API, providing real-time information about U.S. National Parks, including park details, alerts, and activities.
 
@@ -59,6 +60,14 @@ MCP Server for the National Park Service (NPS) API, providing real-time informat
    - Returns: Event information including dates, times, and descriptions
 
 ## Setup
+
+### Installing via Smithery
+
+To install mcp-server-nationalparks for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@KyrieTangSheng/mcp-server-nationalparks):
+
+```bash
+npx -y @smithery/cli install @KyrieTangSheng/mcp-server-nationalparks --client claude
+```
 
 ### NPS API Key
 1. Get a free API key from the [National Park Service Developer Portal](https://www.nps.gov/subjects/developer/get-started.htm)
