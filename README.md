@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/kyrietangsheng-mcp-server-nationalparks-badge.png)](https://mseep.ai/app/kyrietangsheng-mcp-server-nationalparks)
+
 # National Parks MCP Server
 [![smithery badge](https://smithery.ai/badge/@KyrieTangSheng/mcp-server-nationalparks)](https://smithery.ai/server/@KyrieTangSheng/mcp-server-nationalparks)
 
